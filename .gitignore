@@ -1,0 +1,90 @@
+# Environment variables and secrets
+
+.env
+.env.*
+!.env.example
+
+# Python cache files
+
+**pycache**/
+*.py[cod]
+*$py.class
+*.so
+
+# Python virtual environments
+
+venv/
+.venv/
+env/
+ENV/
+
+# Python packaging
+
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# FastAPI / Python testing and coverage
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Logs
+
+*.log
+logs/
+
+# React / Node.js dependencies
+
+node_modules/
+
+# React build output
+
+dist/
+build/
+
+# Vite cache
+
+.vite/
+
+# React environment files
+
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating system files
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Jupyter Notebook
+
+.ipynb_checkpoints/
+
+# Temporary files
+
+*.tmp
+*.temp
+
+# Local databases
+
+*.sqlite3
+*.db
+
+# Local Python environment configuration
+
+.python-version
