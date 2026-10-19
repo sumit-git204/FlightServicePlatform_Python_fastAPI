@@ -4,6 +4,7 @@ from fastapi import HTTPException
 
 from models.flight import Flight
 from schemas.flight import FlightCreate
+from exceptions import  FlightNotFoundError
 
 
 def create_flight(db: Session, flight_data: FlightCreate):
@@ -32,7 +33,7 @@ def get_flight_by_id_services(db: Session, flight_id: int):
     flight = db.query(Flight).filter(Flight.id == flight_id).first()
 
     if not flight:
-        raise HTTPException(status_code=404, detail="Flight not found")
+        raise FlightNotFoundError(f"Flight with id {flight_id} not found")
 
     return flight
 
@@ -41,7 +42,7 @@ def delete_flight(db: Session, flight_id: int):
     flight = db.query(Flight).filter(Flight.id == flight_id).first()
 
     if not flight:
-        raise HTTPException(status_code=404, detail="Flight not found")
+        raise FlightNotFoundError(f"Flight with id {flight_id} not found")
 
     db.delete(flight)
     db.commit()
@@ -52,7 +53,7 @@ def update_flight_services(db: Session, flight_id: int, updated_flight: FlightCr
     flight = db.query(Flight).filter(Flight.id == flight_id).first()
 
     if not flight:
-        raise HTTPException(status_code=404, detail="Flight not found")
+        raise FlightNotFoundError(f"Flight with id {flight_id} not found")
 
     flight.flight_number = updated_flight.flight_number
     flight.source = updated_flight.source

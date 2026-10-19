@@ -10,4 +10,8 @@ class Booking(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     flight_id = Column(Integer, ForeignKey("flights.id"), nullable=False)
 
-    status = Column(String, default="CONFIRMED", nullable=False)
+    status = Column(
+        String(20),
+        default="CONFIRMED",
+        nullable=False
+    )

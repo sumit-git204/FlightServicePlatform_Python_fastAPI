@@ -1,9 +1,9 @@
 
-from fastapi import HTTPException
 
 from sqlalchemy.orm import Session
 from models.user import User
 from schemas.user import UserCreate
+from exceptions import UserNotFoundError
 
 
 def create_user(db: Session, user_data: UserCreate):
@@ -29,7 +29,7 @@ def user_by_id(db: Session, userId: int):
     user = db.query(User).filter(User.id == userId).first()
     
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise UserNotFoundError(f"User with id {userId} not found")
 
     return user
 
@@ -39,7 +39,7 @@ def update_user(db: Session, userId: int, updated_user: UserCreate):
     user = db.query(User).filter(User.id == userId).first()
 
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise UserNotFoundError(f"User with id {userId} not found")
 
     user.name = updated_user.name
     user.email = updated_user.email
@@ -54,7 +54,7 @@ def delete_user(db: Session, userId: int):
     user = db.query(User).filter(User.id == userId).first()
 
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise UserNotFoundError(f"User with id {userId} not found")
 
     db.delete(user)
     db.commit()

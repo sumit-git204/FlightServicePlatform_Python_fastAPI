@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from schemas.booking import BookingCreate, BookingResponse
-from services.booking import create_booking as create_booking_service, get_all_bookings_services, get_booking_by_id_services
+from services.booking import create_booking as create_booking_service, get_all_bookings_services, get_booking_by_id_services , cancel_booking , update_booking_service
 
 
 router = APIRouter(prefix="/bookings", tags=["Bookings"])
@@ -29,3 +29,21 @@ def get_booking(
     db: Session = Depends(get_db)
 ):
     return get_booking_by_id_services(db, booking_id)
+
+
+@router.put("/{booking_id}/cancel", response_model=BookingResponse)
+def cancel_booking_endpoint(
+    booking_id: int,
+    db: Session = Depends(get_db)
+):
+    return cancel_booking(db, booking_id)
+
+
+@router.put("/{booking_id}", response_model=BookingResponse
+            )
+def update_booking(
+    booking_id: int,
+    booking_data: BookingCreate,
+    db: Session = Depends(get_db)
+):
+    return update_booking_service(db, booking_id, booking_data)
